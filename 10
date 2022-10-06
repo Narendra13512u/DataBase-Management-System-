@@ -1,0 +1,320 @@
+
+mysql> show database;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| department         |
+| employee           |
+| faculty            |
+| mysql              |
+| performance_schema |
+| student            |
+| test               |
++--------------------+
+8 rows in set (0.00 sec)
+
+mysql> use employee;
+Database changed
+mysql> create table employee(id int(3), name varchar(8),city varchar(7),salary int(5));
+ERROR 1050 (42S01): Table 'employee' already exists
+mysql> desc employee;
++--------+------------+------+-----+---------+-------+
+| Field  | Type       | Null | Key | Default | Extra |
++--------+------------+------+-----+---------+-------+
+| id     | int(3)     | YES  |     | NULL    |       |
+| name   | varchar(8) | YES  |     | NULL    |       |
+| city   | varchar(9) | YES  |     | NULL    |       |
+| salary | int(5)     | YES  |     | NULL    |       |
+| dept   | varchar(3) | YES  |     | NULL    |       |
++--------+------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table employee add dept varchar(3);
+ERROR 1060 (42S21): Duplicate column name 'dept'
+mysql> alter table employee add dept varchar(3);
+ERROR 1060 (42S21): Duplicate column name 'dept'
+mysql> insert into employee(id,name,city,salary)values('171','ram','chennai','50000');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> desc employee;
++--------+------------+------+-----+---------+-------+
+| Field  | Type       | Null | Key | Default | Extra |
++--------+------------+------+-----+---------+-------+
+| id     | int(3)     | YES  |     | NULL    |       |
+| name   | varchar(8) | YES  |     | NULL    |       |
+| city   | varchar(9) | YES  |     | NULL    |       |
+| salary | int(5)     | YES  |     | NULL    |       |
+| dept   | varchar(3) | YES  |     | NULL    |       |
++--------+------------+------+-----+---------+-------+
+5 rows in set (0.02 sec)
+
+mysql> select *from employee;
++------+------+---------+--------+------+
+| id   | name | city    | salary | dept |
++------+------+---------+--------+------+
+|  171 | ram  | chennai |  50000 | NULL |
++------+------+---------+--------+------+
+1 row in set (0.00 sec)
+
+mysql> desc employee;
++--------+------------+------+-----+---------+-------+
+| Field  | Type       | Null | Key | Default | Extra |
++--------+------------+------+-----+---------+-------+
+| id     | int(3)     | YES  |     | NULL    |       |
+| name   | varchar(8) | YES  |     | NULL    |       |
+| city   | varchar(9) | YES  |     | NULL    |       |
+| salary | int(5)     | YES  |     | NULL    |       |
+| dept   | varchar(3) | YES  |     | NULL    |       |
++--------+------------+------+-----+---------+-------+
+5 rows in set (0.02 sec)
+
+mysql> insert into employee(id,name,city,salary)values('172','john','mumbai','60000');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employee(id,name,city,salary)values('173','smith','delhi','70000');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> desc employee;
++--------+------------+------+-----+---------+-------+
+| Field  | Type       | Null | Key | Default | Extra |
++--------+------------+------+-----+---------+-------+
+| id     | int(3)     | YES  |     | NULL    |       |
+| name   | varchar(8) | YES  |     | NULL    |       |
+| city   | varchar(9) | YES  |     | NULL    |       |
+| salary | int(5)     | YES  |     | NULL    |       |
+| dept   | varchar(3) | YES  |     | NULL    |       |
++--------+------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> select *from employee;
++------+-------+---------+--------+------+
+| id   | name  | city    | salary | dept |
++------+-------+---------+--------+------+
+|  171 | ram   | chennai |  50000 | NULL |
+|  172 | john  | mumbai  |  60000 | NULL |
+|  173 | smith | delhi   |  70000 | NULL |
++------+-------+---------+--------+------+
+3 rows in set (0.00 sec)
+
+mysql> insert into employee(id,name,city,salary)values('174','raghu','chennai','80000');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *from employee;
++------+-------+---------+--------+------+
+| id   | name  | city    | salary | dept |
++------+-------+---------+--------+------+
+|  171 | ram   | chennai |  50000 | NULL |
+|  172 | john  | mumbai  |  60000 | NULL |
+|  173 | smith | delhi   |  70000 | NULL |
+|  174 | raghu | chennai |  80000 | NULL |
++------+-------+---------+--------+------+
+4 rows in set (0.00 sec)
+
+mysql> select count(*)from employee;
++----------+
+| count(*) |
++----------+
+|        4 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select sum(salary)from employee;
++-------------+
+| sum(salary) |
++-------------+
+|      260000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(salary)from employee;
++-------------+
+| avg(salary) |
++-------------+
+|  65000.0000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select max(salary)from employee;
++-------------+
+| max(salary) |
++-------------+
+|       80000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select *from employee where salary between 50000 and 70000;
++------+-------+---------+--------+------+
+| id   | name  | city    | salary | dept |
++------+-------+---------+--------+------+
+|  171 | ram   | chennai |  50000 | NULL |
+|  172 | john  | mumbai  |  60000 | NULL |
+|  173 | smith | delhi   |  70000 | NULL |
++------+-------+---------+--------+------+
+3 rows in set (0.01 sec)
+
+mysql> select *from employee where salary between 50000 and 60000;
++------+------+---------+--------+------+
+| id   | name | city    | salary | dept |
++------+------+---------+--------+------+
+|  171 | ram  | chennai |  50000 | NULL |
+|  172 | john | mumbai  |  60000 | NULL |
++------+------+---------+--------+------+
+2 rows in set (0.00 sec)
+
+mysql> select *from employee where city in('chennai','mumbai');
++------+-------+---------+--------+------+
+| id   | name  | city    | salary | dept |
++------+-------+---------+--------+------+
+|  171 | ram   | chennai |  50000 | NULL |
+|  172 | john  | mumbai  |  60000 | NULL |
+|  174 | raghu | chennai |  80000 | NULL |
++------+-------+---------+--------+------+
+3 rows in set (0.02 sec)
+
+mysql> select *from employee;
++------+-------+---------+--------+------+
+| id   | name  | city    | salary | dept |
++------+-------+---------+--------+------+
+|  171 | ram   | chennai |  50000 | NULL |
+|  172 | john  | mumbai  |  60000 | NULL |
+|  173 | smith | delhi   |  70000 | NULL |
+|  174 | raghu | chennai |  80000 | NULL |
++------+-------+---------+--------+------+
+4 rows in set (0.00 sec)
+
+mysql> select *from employee group by salry having salary >50000 order by name;
+ERROR 1054 (42S22): Unknown column 'salry' in 'group statement'
+mysql> select *from employee group by salary having salary >50000 order by name;
++------+-------+---------+--------+------+
+| id   | name  | city    | salary | dept |
++------+-------+---------+--------+------+
+|  172 | john  | mumbai  |  60000 | NULL |
+|  174 | raghu | chennai |  80000 | NULL |
+|  173 | smith | delhi   |  70000 | NULL |
++------+-------+---------+--------+------+
+3 rows in set (0.00 sec)
+
+mysql> select *from employee;
++------+-------+---------+--------+------+
+| id   | name  | city    | salary | dept |
++------+-------+---------+--------+------+
+|  171 | ram   | chennai |  50000 | NULL |
+|  172 | john  | mumbai  |  60000 | NULL |
+|  173 | smith | delhi   |  70000 | NULL |
+|  174 | raghu | chennai |  80000 | NULL |
++------+-------+---------+--------+------+
+4 rows in set (0.00 sec)
+
+mysql> select *from employee group by salary having salary >60000 order by name;
++------+-------+---------+--------+------+
+| id   | name  | city    | salary | dept |
++------+-------+---------+--------+------+
+|  174 | raghu | chennai |  80000 | NULL |
+|  173 | smith | delhi   |  70000 | NULL |
++------+-------+---------+--------+------+
+2 rows in set (0.00 sec)
+
+mysql> select *from employee group by id;
++------+-------+---------+--------+------+
+| id   | name  | city    | salary | dept |
++------+-------+---------+--------+------+
+|  171 | ram   | chennai |  50000 | NULL |
+|  172 | john  | mumbai  |  60000 | NULL |
+|  173 | smith | delhi   |  70000 | NULL |
+|  174 | raghu | chennai |  80000 | NULL |
++------+-------+---------+--------+------+
+4 rows in set (0.00 sec)
+
+mysql> select *from employee having salary >60000;
++------+-------+---------+--------+------+
+| id   | name  | city    | salary | dept |
++------+-------+---------+--------+------+
+|  173 | smith | delhi   |  70000 | NULL |
+|  174 | raghu | chennai |  80000 | NULL |
++------+-------+---------+--------+------+
+2 rows in set (0.00 sec)
+
+mysql> select *from employee order by name;
++------+-------+---------+--------+------+
+| id   | name  | city    | salary | dept |
++------+-------+---------+--------+------+
+|  172 | john  | mumbai  |  60000 | NULL |
+|  174 | raghu | chennai |  80000 | NULL |
+|  171 | ram   | chennai |  50000 | NULL |
+|  173 | smith | delhi   |  70000 | NULL |
++------+-------+---------+--------+------+
+4 rows in set (0.00 sec)
+
+mysql> create view me as select name,salary from employee where salary >50000;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select *from me;
++-------+--------+
+| name  | salary |
++-------+--------+
+| john  |  60000 |
+| smith |  70000 |
+| raghu |  80000 |
++-------+--------+
+3 rows in set (0.00 sec)
+
+mysql> create index inx_name on employee (name);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++--------+------------+------+-----+---------+-------+
+| Field  | Type       | Null | Key | Default | Extra |
++--------+------------+------+-----+---------+-------+
+| id     | int(3)     | YES  |     | NULL    |       |
+| name   | varchar(8) | YES  | MUL | NULL    |       |
+| city   | varchar(9) | YES  |     | NULL    |       |
+| salary | int(5)     | YES  |     | NULL    |       |
+| dept   | varchar(3) | YES  |     | NULL    |       |
++--------+------------+------+-----+---------+-------+
+5 rows in set (0.02 sec)
+
+mysql> insert into fruits values('7','mango');
+ERROR 1146 (42S02): Table 'employee.fruits' doesn't exist
+mysql> create table fruits(id int(6),name varchar(8));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into fruits values('7','apple');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *from fruits;
++------+-------+
+| id   | name  |
++------+-------+
+|    7 | apple |
++------+-------+
+1 row in set (0.00 sec)
+
+mysql> create view as select name,salary from employee where salary >50000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'as select name,salary from employee where salary >50000' at line 1
+mysql> create view me as select name,salary from employee where salary >50000;
+ERROR 1050 (42S01): Table 'me' already exists
+mysql> select *me;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'me' at line 1
+mysql> select *from me;
++-------+--------+
+| name  | salary |
++-------+--------+
+| john  |  60000 |
+| smith |  70000 |
+| raghu |  80000 |
++-------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select *from fruits;
++------+-------+
+| id   | name  |
++------+-------+
+|    7 | apple |
++------+-------+
+1 row in set (0.00 sec)
+
+mysql>
